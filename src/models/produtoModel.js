@@ -9,7 +9,7 @@ const produtoModel = {
      * @async
      * @function buscarTodos
      * @returns {promise<Array>} Retorna uma lista com todos os produtos.
-     * @throws Mostra no console e propaga o erro caso a bsuca falhe.
+     * @throws Mostra no console e propaga o erro caso a busca falhe.
      */
     buscarTodos: async () => {
         try {
@@ -24,12 +24,36 @@ const produtoModel = {
             return result.recordset;
 
         } catch (error) {
+            
             console.error("Erro ao buscar produtos:", error);
             throw error; // Reverberar o erro para a função que o chama.
 
 
         }
     },
+
+    buscarUm: async (idProduto) => {
+        try {
+            const pool = await getConnection ();
+            
+            const querySQL = `
+            SELECT * FROM produtos 
+            WHERE idProduto = @idProduto
+            `;
+
+            const result = await pool.request()
+                .input('idProduto', sql.UniqueIdentifier, idProduto)
+                .query(querySQL);
+
+            return result.recordset;
+
+        } catch (error) {
+             console.error("Erro ao buscar o produto:", error);
+            throw error; // Reverberar o erro para a função que o chama.
+            
+        }
+    },
+
     /**
      * insere um novo produto no banco de dados
      * 
@@ -56,7 +80,7 @@ const produtoModel = {
                 .query(querySQL);
 
         } catch (error) {
-            console.error("Erro ao inserir produtos:", error);
+            console.error("Erro ao inserir produto:", error);
             throw error
 
         }
