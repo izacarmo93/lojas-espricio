@@ -13,7 +13,7 @@ const produtoController = {
      */
     listarProdutos: async (req, res) => {
         try {
-            const { idProduto } = req.query;
+            const { idProduto } = req.query;u
 
             if (idProduto) {
                 if (idProduto.length !=36) {
@@ -30,7 +30,6 @@ const produtoController = {
             res.status(200).json(Produtos);
 
         } catch (error) {
-            console.error('erro ao listar produtos:', error);
             res.status(500).json({ error: 'erro ao buscar produto' });
 
         }

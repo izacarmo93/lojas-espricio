@@ -1,4 +1,4 @@
-const { promises } = require("dns");
+const { clienteModel } = require("../models/clienteModel")
 
 const clienteController = {
     /**
@@ -10,16 +10,23 @@ const clienteController = {
      * @returns {promise<void>} Retorna uma resposta JSON com a lista de clientes.
      * @throws mostra no console e retorna erro 409  se ocorrer falha ao buscar clientes.
      */
-
-     listarClientes: async (req, res) => {
+    listarClientes: async (req, res) => {
         try {
-            const { idCliente } = req.query;
+            const clientes = await clienteModel.buscarTodos();
+            res.status(200).json(clientes);
+dy
+        } catch (error) {
+            console.error("erro ao buscar clientes:",error)
+            res.status(500).json({ error: 'erro ao buscar clientes ' });
+        }
+    }
 
-            if (idCliente) {
-                if (idCliente.length !=36) {
-                    return res.status(409).json({erro: " cpf já cadastrado! "});
-                }
+    
 
-    },
-},
+
+
+
+
+
 }
+module.exports = { clienteController }

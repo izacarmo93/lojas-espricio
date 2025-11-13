@@ -28,7 +28,30 @@ const clienteModel = {
 
 
         }
-    }
+    },
+    
+    buscarUm: async (idCliente) => {
+        try {
+            const pool = await getConnection ();
+            
+            const querySQL = `
+            SELECT * FROM clientes 
+            WHERE idCliente = @idcliente
+            `;
+
+            const result = await pool.request()
+                .input('idCliente', sql.UniqueIdentifier, idCliente)
+                .query(querySQL);
+
+            return result.recordset;
+
+        } catch (error) {
+             console.error("Erro ao buscar cliente:", error);
+            throw error; // Reverberar o erro para a função que o chama.
+            
+        }
+    },
+
 
 }
 
