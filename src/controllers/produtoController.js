@@ -13,7 +13,7 @@ const produtoController = {
      */
     listarProdutos: async (req, res) => {
         try {
-            const { idProduto } = req.query;u
+            const { idProduto } = req.query;
 
             if (idProduto) {
                 if (idProduto.length !=36) {
