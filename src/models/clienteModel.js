@@ -29,11 +29,11 @@ const clienteModel = {
 
         }
     },
-    
+
     buscarUm: async (idCliente) => {
         try {
-            const pool = await getConnection ();
-            
+            const pool = await getConnection();
+
             const querySQL = `
             SELECT * FROM clientes 
             WHERE idCliente = @idcliente
@@ -46,12 +46,56 @@ const clienteModel = {
             return result.recordset;
 
         } catch (error) {
-             console.error("Erro ao buscar cliente:", error);
+            console.error("Erro ao buscar cliente:", error);
             throw error; // Reverberar o erro para a função que o chama.
-            
+
         }
     },
+    inserirCliente: async (nomeCliente, cpfCliente) => {
 
+        try {
+
+            const pool = await getConnection();
+
+            const querySQL = `
+            INSERT INTO clientes (nomeCliente, cpfCliente) 
+            VALUES (@nomeCliente, @cpfCliente)
+            `
+            await pool.request()
+                .input("nomeCliente", sql.VarChar(100), nomeCliente)
+                .input("cpfCliente", sql.Char(11), cpfCliente)
+                .query(querySQL);
+
+        } catch (error) {
+            console.error("Erro ao inserir cliente:", error);
+            throw error
+
+        }
+
+    },
+ verificarCpf: async (cpfCliente) => {
+
+        try {
+
+            const pool = await getConnection();
+
+            const querySQL = `
+           SELECT * FROM CLIENTES
+           WHERE @cpfCliente = @cpfCliente
+            `
+          const result =  await pool.request()
+                .input("cpfCliente", sql.Char(11), cpfCliente)
+                .query(querySQL);
+            
+            return result.recordset;
+
+        } catch (error) {
+            console.error("Erro ao buscar cpf:", error);
+            throw error
+
+        }
+
+    }
 
 }
 
