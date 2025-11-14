@@ -75,6 +75,38 @@ const produtoController = {
         }
     },
 
+    atualizarProduto: async (req,res) => {
+        try {
+          
+          const {idProduto} = req.parames;
+          const {nomeProduto, precoProduto} = req.body;
+
+          if (idProduto.length != 36) {
+             return res.status(400).json({erro: "id do produto inválido! "});
+          }
+
+          const produto = await produtoModel.buscarUm(idProduto);
+
+          if (!produto || produto.length !== 1 ) {
+            return res.status(404).json ({erro: ' Produto não encontrado'});
+          }
+
+          const produtoAtual = produto[0];
+
+          const nomeAtualizado = nomeProduto ?? produtoAtual.nomeProduto;
+          const precoAtualizado = precoProduto ?? precoAtualizado.precoProduto;
+
+          await produtoModel.atualizarProduto(idProduto, nomeAtualizado, precoAtualizado);
+
+          res.status(200).json({mensagem: ' Produto atualizado com sucesso!'});
+
+
+
+        } catch (error) {
+             console.error('Erro ao atualizar produto', error);
+            res.status(500).json({ erro: 'ERRO AO ATUALIZAR PRODUTOS ' });
+        }
+    }
 
 
 

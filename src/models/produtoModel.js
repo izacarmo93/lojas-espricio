@@ -1,6 +1,6 @@
 const { promises } = require("dns");
 const { sql, getConnection } = require("../config/db");
-const { query } = require("mssql");
+const { query, UniqueIdentifier } = require("mssql");
 
 const produtoModel = {
     /**
@@ -31,7 +31,15 @@ const produtoModel = {
 
         }
     },
-
+/**
+ * Busca apenas um produto no banco de dados.
+ * 
+ * @async
+ * @function buscarUm
+ * @param {string} idProduto - Id do produto em UUID no banco de dados.
+ * @returns {promise<void>} - Retorna uma lista com um produto caso encontre no banco de dados.
+ * @throws Mostra no console e propaga o erro caso a busca falhe.
+ */
     buscarUm: async (idProduto) => {
         try {
             const pool = await getConnection ();
@@ -85,6 +93,40 @@ const produtoModel = {
 
         }
 
+    },
+/**
+ * Atualiza um produto no banco de dados.
+ * 
+ * @async
+ * @function
+ * @param {string} idProduto - Id do produto em UUID no banco de dados.
+ * @param {string} nomeProduto - Nome do produto a ser atualizado.
+ * @param {number} precoProduto - Preço do produto a ser atualizado.
+ * @returns {promise<void>} - Não retorna nada, apenas executa a atualização.
+ * @throws Mostra no console e propaga o erro caso a atualização falhe.
+ */
+    atualizarProduto: async (idProduto, nomeProduto, precoProduto) => {
+        try {
+            const pool = await getConnection();
+
+            const querySQL = `
+            UPDATE Produtos
+            SET nomeProduto = @nomeProduto, 
+            precoProduto = @precoProduto
+            WHERE idProduto = @idProduto
+            `;
+
+            await pool.request()
+            .input('idPoduto', sql.UniqueIdentifier, idProduto)
+            .input('nomeProduto', sql.VarChar(100), nomeProduto)
+            .input('precoProduto', sql.Decimal(10,2), precoProduto)
+            .querySQL(querySQL);
+
+        } catch (error) {
+             console.error("Erro ao autualizar produto:", error);
+            throw error;
+            
+        }
     }
 
 }
