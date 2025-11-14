@@ -78,7 +78,7 @@ const produtoController = {
     atualizarProduto: async (req,res) => {
         try {
           
-          const {idProduto} = req.parames;
+          const {idProduto} = req.params;
           const {nomeProduto, precoProduto} = req.body;
 
           if (idProduto.length != 36) {
