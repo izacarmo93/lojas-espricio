@@ -1,0 +1,217 @@
+type: collection.insomnia.rest/5.0
+name: Loja Espricio
+meta:
+  id: wrk_18e3f70cf58643b2b0c50785cd040d88
+  created: 1762466139677
+  modified: 1762466159109
+  description: ""
+collection:
+  - name: Produtos
+    meta:
+      id: fld_68aab04c7a124ccbac1b9e943953da5f
+      created: 1762466169119
+      modified: 1762466169119
+      sortKey: -1762466169119
+      description: ""
+    children:
+      - url: http://localhost:8081/produtos
+        name: Listar produtos
+        meta:
+          id: req_8b7884f93ebf485a9635d463a5e5a3c8
+          created: 1762466139914
+          modified: 1763161169873
+          isPrivate: false
+          description: ""
+          sortKey: -1762466182193
+        method: GET
+        parameters:
+          - id: pair_8b0842c4b4a94938b758a8f397810e58
+            name: idProduto
+            value: BDAAC90A-86AE-4FB3-86B2-0CCF134B081F
+            description: ""
+            disabled: true
+        headers:
+          - name: User-Agent
+            value: insomnia/11.6.2
+        settings:
+          renderRequestBody: true
+          encodeUrl: true
+          followRedirects: global
+          cookies:
+            send: true
+            store: true
+          rebuildPath: true
+      - url: http://localhost:8081/produtos
+        name: Criar produto
+        meta:
+          id: req_4bfcfdb84ff843d6b6f4d0ea79ae1a54
+          created: 1762473435693
+          modified: 1763071002750
+          isPrivate: false
+          description: ""
+          sortKey: -1762466182093
+        method: POST
+        body:
+          mimeType: application/json
+          text: |+
+            
+            	{
+            "nomeProduto": "short Nike",
+            "precoProduto": 149.90
+            }
+
+        parameters:
+          - id: pair_cfa439ac1ca1412887302e117567100a
+            name: idProduto
+            value: ""
+            description: ""
+            disabled: true
+        headers:
+          - name: Content-Type
+            value: application/json
+          - name: User-Agent
+            value: insomnia/11.6.2
+        settings:
+          renderRequestBody: true
+          encodeUrl: true
+          followRedirects: global
+          cookies:
+            send: true
+            store: true
+          rebuildPath: true
+      - url: http://localhost:8081/produtos/BDAAC90A-86AE-4FB3-86B2-0CCF134B081F
+        name: localizar produto
+        meta:
+          id: req_0f493803bda849258fd51dea29434a07
+          created: 1763079915282
+          modified: 1763164150131
+          isPrivate: false
+          description: ""
+          sortKey: -1763079915282
+        method: PUT
+        body:
+          mimeType: application/json
+          text: |-
+            {
+            	"precoProduto": 9
+            }
+        headers:
+          - name: Content-Type
+            value: application/json
+          - name: User-Agent
+            value: insomnia/12.0.0
+        settings:
+          renderRequestBody: true
+          encodeUrl: true
+          followRedirects: global
+          cookies:
+            send: true
+            store: true
+          rebuildPath: true
+      - url: http://localhost:8081/produtos/
+        name: Deletar produtos
+        meta:
+          id: req_05d2707d94a1446c9ffab6e1a7fb04df
+          created: 1763160598420
+          modified: 1763164060851
+          isPrivate: false
+          description: ""
+          sortKey: -1763035937138.5
+        method: DELETE
+        body:
+          mimeType: application/json
+          text: |-
+            {
+            	"precoProduto": 9
+            }
+        headers:
+          - name: Content-Type
+            value: application/json
+          - name: User-Agent
+            value: insomnia/12.0.0
+        settings:
+          renderRequestBody: true
+          encodeUrl: true
+          followRedirects: global
+          cookies:
+            send: true
+            store: true
+          rebuildPath: true
+  - name: clientes
+    meta:
+      id: fld_b0c3c1fdb8a44d9a9edf2dcee82f20d4
+      created: 1762991954553
+      modified: 1762991954553
+      sortKey: -1762991954553
+      description: ""
+    children:
+      - url: http://localhost:8081/clientes
+        name: listar clientes
+        meta:
+          id: req_22afaf56924d4dd0a69cd2848c6523cb
+          created: 1762991958895
+          modified: 1763070855365
+          isPrivate: false
+          description: ""
+          sortKey: -1762991958895
+        method: GET
+        parameters:
+          - id: pair_ced3327e21fe43b6b49492a583a484c7
+            name: ""
+            value: ""
+            description: ""
+            disabled: false
+        headers:
+          - name: User-Agent
+            value: insomnia/12.0.0
+        settings:
+          renderRequestBody: true
+          encodeUrl: true
+          followRedirects: global
+          cookies:
+            send: true
+            store: true
+          rebuildPath: true
+      - url: http://localhost:8081/clientes
+        name: criar cliente
+        meta:
+          id: req_37d2a5f94444418cbf53a404817846bd
+          created: 1763070863877
+          modified: 1763073031003
+          isPrivate: false
+          description: ""
+          sortKey: -1762991958995
+        method: POST
+        body:
+          mimeType: application/json
+          text: |-
+            {
+            "nomeCliente": "izadora",
+            "cpfCliente": "43184426832"
+            }
+        headers:
+          - name: Content-Type
+            value: application/json
+          - name: User-Agent
+            value: insomnia/12.0.0
+        settings:
+          renderRequestBody: true
+          encodeUrl: true
+          followRedirects: global
+          cookies:
+            send: true
+            store: true
+          rebuildPath: true
+cookieJar:
+  name: Default Jar
+  meta:
+    id: jar_2a6dfff544c0099239d1c0546ad6ce7fa40b39f4
+    created: 1762466139692
+    modified: 1762466139692
+environments:
+  name: Base Environment
+  meta:
+    id: env_2a6dfff544c0099239d1c0546ad6ce7fa40b39f4
+    created: 1762466139685
+    modified: 1762466139685
+    isPrivate: false
