@@ -59,13 +59,13 @@ const clienteModel = {
 
             const querySQL = `
             INSERT INTO clientes (nomeCliente, cpfCliente, emailCliente, senhaCliente ) 
-            VALUES (@nomeCliente, @cpfCliente, @emailCliente, senhaCliente)
+            VALUES (@nomeCliente, @cpfCliente, @emailCliente, @senhaCliente)
             `
             await pool.request()
                 .input("nomeCliente", sql.VarChar(100), nomeCliente)
                 .input("cpfCliente", sql.Char(11), cpfCliente)
-                .input("emailCliente",sql.VarChar(200), emailCliente)
-                .input("senhaCliente",sql.varChar(255), senhaCliente)
+                .input("emailCliente", sql.VarChar(200), emailCliente)
+                .input("senhaCliente", sql.VarChar(255), senhaCliente)
                 .query(querySQL);
 
         } catch (error) {

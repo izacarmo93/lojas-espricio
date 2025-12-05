@@ -16,34 +16,33 @@ const clienteController = {
             res.status(200).json(clientes);
         } catch (error) {
             console.error("erro ao buscar clientes:", error)
-            res.status(500).json({ error: 'erro ao buscar clientes ' }); 
+            res.status(500).json({ error: 'erro ao buscar clientes ' });
         }
     },
-    
+
     inserirCliente: async (req, res) => {
         try {
 
             let { nomeCliente, cpfCliente, emailCliente, senhaCliente } = req.body;
 
-            if (!nomeCliente || nomeCliente.trim() === "" || 
+            if (!nomeCliente || nomeCliente.trim() === "" ||
                 !cpfCliente || typeof cpfCliente !== 'string' || cpfCliente.length !== 11) {
-                
+
                 return res.status(400).json({ erro: "Dados inválidos: nome e CPF (11 dígitos) são obrigatórios." });
             }
-             const saltRounds = 10;
-            
-            senhaCliente = bcrypt.hashSync(senhaCliente, saltRounds); 
-
-            await clienteModel.inserirCliente(nomeCliente, cpfCliente, emailCliente, senhaCliente );
-
             const cliente = await clienteModel.verificarCpf(cpfCliente);
-            
-            if (cliente) {
-                return res.status(409).json({erro:"Cliente com cpf já cadastrado."});
-            }
 
-            // INSERÇÃO
-            await clienteModel.inserirCliente(nomeCliente, cpfCliente);
+            if (cliente) {
+                return res.status(409).json({ erro: "Cliente com cpf já cadastrado." });
+            }
+            const bcrypt = require("bcrypt");
+
+            const saltRounds = 10;
+
+            senhaCliente = bcrypt.hashSync(senhaCliente, saltRounds);
+
+            await clienteModel.inserirCliente(nomeCliente, cpfCliente, emailCliente, senhaCliente);
+
 
             res.status(201).json({ message: "Cliente cadastrado com sucesso!" });
 
