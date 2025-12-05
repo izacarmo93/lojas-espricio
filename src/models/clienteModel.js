@@ -51,19 +51,21 @@ const clienteModel = {
 
         }
     },
-    inserirCliente: async (nomeCliente, cpfCliente) => {
+    inserirCliente: async (nomeCliente, cpfCliente, emailCliente, senhaCliente) => {
 
         try {
 
             const pool = await getConnection();
 
             const querySQL = `
-            INSERT INTO clientes (nomeCliente, cpfCliente) 
-            VALUES (@nomeCliente, @cpfCliente)
+            INSERT INTO clientes (nomeCliente, cpfCliente, emailCliente, senhaCliente ) 
+            VALUES (@nomeCliente, @cpfCliente, @emailCliente, senhaCliente)
             `
             await pool.request()
                 .input("nomeCliente", sql.VarChar(100), nomeCliente)
                 .input("cpfCliente", sql.Char(11), cpfCliente)
+                .input("emailCliente",sql.VarChar(200), emailCliente)
+                .input("senhaCliente",sql.varChar(255), senhaCliente)
                 .query(querySQL);
 
         } catch (error) {
@@ -81,13 +83,13 @@ const clienteModel = {
 
             const querySQL = `
            SELECT * FROM CLIENTES
-           WHERE @cpfCliente = @cpfCliente
+           WHERE cpfCliente = @cpfCliente
             `
           const result =  await pool.request()
                 .input("cpfCliente", sql.Char(11), cpfCliente)
                 .query(querySQL);
             
-            return result.recordset;
+            return result.recordset[0];
 
         } catch (error) {
             console.error("Erro ao buscar cpf:", error);
