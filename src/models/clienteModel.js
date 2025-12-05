@@ -66,7 +66,7 @@ const clienteModel = {
                 .input("cpfCliente", sql.Char(11), cpfCliente)
                 .input("emailCliente", sql.VarChar(200), emailCliente)
                 .input("senhaCliente", sql.VarChar(255), senhaCliente)
-                .query(querySQL);
+                .query(querySQL); 
 
         } catch (error) {
             console.error("Erro ao inserir cliente:", error);
