@@ -1,3 +1,4 @@
+const { pool } = require("mssql");
 const { sql, getConnection } = require("../config/db");
 
 const clienteModel = {
@@ -51,6 +52,28 @@ const clienteModel = {
 
         }
     },
+
+    buscarEmailOrCPF: async (cpfCliente, emailCliente) => {
+        try{
+            const pool = await getConnection();
+            
+            let querySQL = "SELECT * FROM clientes WHERE cpfCliente = @cpfCliente OR emailCliente = @emailCliente";
+
+            const result = await pool
+                .request()
+                .input("cpfCliente", sql.Char(11), cpfCliente)
+                .input("emailCliente", sql.VarChar(200), emailCliente)
+                .query(querySQL);
+
+            return result.recordset;
+        } catch (error) {
+            console.error("Erro ao buscar cliente", error);
+        }
+
+        },
+        
+    
+
     inserirCliente: async (nomeCliente, cpfCliente, emailCliente, senhaCliente) => {
 
         try {
@@ -75,6 +98,7 @@ const clienteModel = {
         }
 
     },
+
  verificarCpf: async (cpfCliente) => {
 
         try {
@@ -98,7 +122,6 @@ const clienteModel = {
         }
 
     }
-
 }
 
 
