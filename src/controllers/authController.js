@@ -8,7 +8,7 @@ const authController = {
             const{emailCliente, cpfCliente,senhaCliente} = req.body;
 
             if ((emailCliente == undefined && cpfCliente == undefined) || senhaCliente == undefined) {
-                return res.status(400)({ erro: "email ou CPF e senha são obrigatorios!"});
+                return res.status(400)( {erro: "email ou CPF e senha são obrigatorios!"});
             }
 
             const result = await clienteModel.buscarEmailOrCPF(cpfCliente, emailCliente);

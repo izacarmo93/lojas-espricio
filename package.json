@@ -7,5 +7,28 @@
     "jsonwebtoken": "^9.0.3",
     "mssql": "^12.1.0",
     "tedious": "^19.0.0"
-  }
+  },
+  "name": "lojaespricio",
+  "version": "1.0.0",
+  "description": "",
+  "main": "app.js",
+  "directories": {
+    "doc": "docs"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "start": "node app.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/izacarmo93/lojas-espricio.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "bugs": {
+    "url": "https://github.com/izacarmo93/lojas-espricio/issues"
+  },
+  "homepage": "https://github.com/izacarmo93/lojas-espricio#readme"
 }
